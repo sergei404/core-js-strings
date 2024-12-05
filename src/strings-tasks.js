@@ -147,7 +147,13 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeFirstOccurrences(str, value) {
-  return str.replace(value, '');
+  if (!str.includes(value)) {
+    return str;
+  }
+  return (
+    str.slice(0, str.indexOf(value)) +
+    str.slice(str.indexOf(value) + value.length)
+  );
 }
 
 /**
@@ -163,10 +169,16 @@ function removeFirstOccurrences(str, value) {
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeLastOccurrences(str, value) {
-  return str
-    .split(value)
-    .filter((el) => !value.includes(el))
-    .join('');
+  if (!str.includes(value)) {
+    return str;
+  }
+  if (str.lastIndexOf(value.length) === str.length - 1) {
+    return str.slice(0, str.lastIndexOf(value));
+  }
+  return (
+    str.slice(0, str.lastIndexOf(value)) +
+    str.slice(str.lastIndexOf(value) + value.length)
+  );
 }
 
 /**
